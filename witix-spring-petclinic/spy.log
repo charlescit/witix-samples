@@ -1,0 +1,144 @@
+1463748690949|0|statement|connection 1|DROP TABLE vet_specialties IF EXISTS|
+1463748690949|0|statement|connection 1|DROP TABLE vets IF EXISTS|
+1463748690949|0|statement|connection 1|DROP TABLE specialties IF EXISTS|
+1463748690949|0|statement|connection 1|DROP TABLE visits IF EXISTS|
+1463748690949|0|statement|connection 1|DROP TABLE pets IF EXISTS|
+1463748690949|0|statement|connection 1|DROP TABLE types IF EXISTS|
+1463748690950|0|statement|connection 1|DROP TABLE owners IF EXISTS|
+1463748690950|0|statement|connection 1|CREATE TABLE vets ( id INTEGER IDENTITY PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30) )|
+1463748690950|0|statement|connection 1|CREATE INDEX vets_last_name ON vets (last_name)|
+1463748690951|1|statement|connection 1|CREATE TABLE specialties ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(80) )|
+1463748690951|0|statement|connection 1|CREATE INDEX specialties_name ON specialties (name)|
+1463748690952|1|statement|connection 1|CREATE TABLE vet_specialties ( vet_id INTEGER NOT NULL, specialty_id INTEGER NOT NULL )|
+1463748690953|1|statement|connection 1|ALTER TABLE vet_specialties ADD CONSTRAINT fk_vet_specialties_vets FOREIGN KEY (vet_id) REFERENCES vets (id)|
+1463748690954|1|statement|connection 1|ALTER TABLE vet_specialties ADD CONSTRAINT fk_vet_specialties_specialties FOREIGN KEY (specialty_id) REFERENCES specialties (id)|
+1463748690954|0|statement|connection 1|CREATE TABLE types ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(80) )|
+1463748690955|1|statement|connection 1|CREATE INDEX types_name ON types (name)|
+1463748690956|1|statement|connection 1|CREATE TABLE owners ( id INTEGER IDENTITY PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30), address VARCHAR(255), city VARCHAR(80), telephone VARCHAR(20) )|
+1463748690956|0|statement|connection 1|CREATE INDEX owners_last_name ON owners (last_name)|
+1463748690957|1|statement|connection 1|CREATE TABLE pets ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(30), birth_date DATE, type_id INTEGER NOT NULL, owner_id INTEGER NOT NULL )|
+1463748690958|1|statement|connection 1|ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id)|
+1463748690958|0|statement|connection 1|ALTER TABLE pets ADD CONSTRAINT fk_pets_types FOREIGN KEY (type_id) REFERENCES types (id)|
+1463748690959|1|statement|connection 1|CREATE INDEX pets_name ON pets (name)|
+1463748690959|0|statement|connection 1|CREATE TABLE visits ( id INTEGER IDENTITY PRIMARY KEY, pet_id INTEGER NOT NULL, visit_date DATE, description VARCHAR(255) )|
+1463748690960|1|statement|connection 1|ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id)|
+1463748690960|0|statement|connection 1|CREATE INDEX visits_pet_id ON visits (pet_id)|
+1463748690962|1|statement|connection 1|INSERT INTO vets VALUES (1, 'James', 'Carter')|
+1463748690962|0|statement|connection 1|INSERT INTO vets VALUES (2, 'Helen', 'Leary')|
+1463748690962|0|statement|connection 1|INSERT INTO vets VALUES (3, 'Linda', 'Douglas')|
+1463748690962|0|statement|connection 1|INSERT INTO vets VALUES (4, 'Rafael', 'Ortega')|
+1463748690963|0|statement|connection 1|INSERT INTO vets VALUES (5, 'Henry', 'Stevens')|
+1463748690963|0|statement|connection 1|INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins')|
+1463748690963|0|statement|connection 1|INSERT INTO specialties VALUES (1, 'radiology')|
+1463748690963|0|statement|connection 1|INSERT INTO specialties VALUES (2, 'surgery')|
+1463748690964|1|statement|connection 1|INSERT INTO specialties VALUES (3, 'dentistry')|
+1463748690964|0|statement|connection 1|INSERT INTO vet_specialties VALUES (2, 1)|
+1463748690964|0|statement|connection 1|INSERT INTO vet_specialties VALUES (3, 2)|
+1463748690964|0|statement|connection 1|INSERT INTO vet_specialties VALUES (3, 3)|
+1463748690965|1|statement|connection 1|INSERT INTO vet_specialties VALUES (4, 2)|
+1463748690965|0|statement|connection 1|INSERT INTO vet_specialties VALUES (5, 1)|
+1463748690965|0|statement|connection 1|INSERT INTO types VALUES (1, 'cat')|
+1463748690965|0|statement|connection 1|INSERT INTO types VALUES (2, 'dog')|
+1463748690966|1|statement|connection 1|INSERT INTO types VALUES (3, 'lizard')|
+1463748690966|0|statement|connection 1|INSERT INTO types VALUES (4, 'snake')|
+1463748690966|0|statement|connection 1|INSERT INTO types VALUES (5, 'bird')|
+1463748690966|0|statement|connection 1|INSERT INTO types VALUES (6, 'hamster')|
+1463748690966|0|statement|connection 1|INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023')|
+1463748690967|0|statement|connection 1|INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749')|
+1463748690967|0|statement|connection 1|INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763')|
+1463748690967|0|statement|connection 1|INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198')|
+1463748690968|1|statement|connection 1|INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765')|
+1463748690968|0|statement|connection 1|INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654')|
+1463748690968|0|statement|connection 1|INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387')|
+1463748690969|1|statement|connection 1|INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683')|
+1463748690969|0|statement|connection 1|INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435')|
+1463748690969|0|statement|connection 1|INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487')|
+1463748690970|1|statement|connection 1|INSERT INTO pets VALUES (1, 'Leo', '2010-09-07', 1, 1)|
+1463748690970|0|statement|connection 1|INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 6, 2)|
+1463748690970|0|statement|connection 1|INSERT INTO pets VALUES (3, 'Rosy', '2011-04-17', 2, 3)|
+1463748690971|1|statement|connection 1|INSERT INTO pets VALUES (4, 'Jewel', '2010-03-07', 2, 3)|
+1463748690971|0|statement|connection 1|INSERT INTO pets VALUES (5, 'Iggy', '2010-11-30', 3, 4)|
+1463748690972|1|statement|connection 1|INSERT INTO pets VALUES (6, 'George', '2010-01-20', 4, 5)|
+1463748690972|0|statement|connection 1|INSERT INTO pets VALUES (7, 'Samantha', '2012-09-04', 1, 6)|
+1463748690972|0|statement|connection 1|INSERT INTO pets VALUES (8, 'Max', '2012-09-04', 1, 6)|
+1463748690973|1|statement|connection 1|INSERT INTO pets VALUES (9, 'Lucky', '2011-08-06', 5, 7)|
+1463748690973|0|statement|connection 1|INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 2, 8)|
+1463748690973|0|statement|connection 1|INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 5, 9)|
+1463748690974|0|statement|connection 1|INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 2, 10)|
+1463748690974|0|statement|connection 1|INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 1, 10)|
+1463748690975|1|statement|connection 1|INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot')|
+1463748690975|0|statement|connection 1|INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot')|
+1463748690975|0|statement|connection 1|INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered')|
+1463748690976|1|statement|connection 1|INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed')|
+1463748737082|1|statement|connection 1|DROP TABLE vet_specialties IF EXISTS|
+1463748737083|0|statement|connection 1|DROP TABLE vets IF EXISTS|
+1463748737083|0|statement|connection 1|DROP TABLE specialties IF EXISTS|
+1463748737083|0|statement|connection 1|DROP TABLE visits IF EXISTS|
+1463748737083|0|statement|connection 1|DROP TABLE pets IF EXISTS|
+1463748737083|0|statement|connection 1|DROP TABLE types IF EXISTS|
+1463748737083|0|statement|connection 1|DROP TABLE owners IF EXISTS|
+1463748737084|1|statement|connection 1|CREATE TABLE vets ( id INTEGER IDENTITY PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30) )|
+1463748737084|0|statement|connection 1|CREATE INDEX vets_last_name ON vets (last_name)|
+1463748737084|0|statement|connection 1|CREATE TABLE specialties ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(80) )|
+1463748737085|1|statement|connection 1|CREATE INDEX specialties_name ON specialties (name)|
+1463748737085|0|statement|connection 1|CREATE TABLE vet_specialties ( vet_id INTEGER NOT NULL, specialty_id INTEGER NOT NULL )|
+1463748737086|1|statement|connection 1|ALTER TABLE vet_specialties ADD CONSTRAINT fk_vet_specialties_vets FOREIGN KEY (vet_id) REFERENCES vets (id)|
+1463748737087|1|statement|connection 1|ALTER TABLE vet_specialties ADD CONSTRAINT fk_vet_specialties_specialties FOREIGN KEY (specialty_id) REFERENCES specialties (id)|
+1463748737088|1|statement|connection 1|CREATE TABLE types ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(80) )|
+1463748737088|0|statement|connection 1|CREATE INDEX types_name ON types (name)|
+1463748737089|1|statement|connection 1|CREATE TABLE owners ( id INTEGER IDENTITY PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30), address VARCHAR(255), city VARCHAR(80), telephone VARCHAR(20) )|
+1463748737089|0|statement|connection 1|CREATE INDEX owners_last_name ON owners (last_name)|
+1463748737090|1|statement|connection 1|CREATE TABLE pets ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(30), birth_date DATE, type_id INTEGER NOT NULL, owner_id INTEGER NOT NULL )|
+1463748737091|1|statement|connection 1|ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id)|
+1463748737091|0|statement|connection 1|ALTER TABLE pets ADD CONSTRAINT fk_pets_types FOREIGN KEY (type_id) REFERENCES types (id)|
+1463748737092|0|statement|connection 1|CREATE INDEX pets_name ON pets (name)|
+1463748737092|0|statement|connection 1|CREATE TABLE visits ( id INTEGER IDENTITY PRIMARY KEY, pet_id INTEGER NOT NULL, visit_date DATE, description VARCHAR(255) )|
+1463748737093|1|statement|connection 1|ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id)|
+1463748737093|0|statement|connection 1|CREATE INDEX visits_pet_id ON visits (pet_id)|
+1463748737095|0|statement|connection 1|INSERT INTO vets VALUES (1, 'James', 'Carter')|
+1463748737095|0|statement|connection 1|INSERT INTO vets VALUES (2, 'Helen', 'Leary')|
+1463748737095|0|statement|connection 1|INSERT INTO vets VALUES (3, 'Linda', 'Douglas')|
+1463748737096|1|statement|connection 1|INSERT INTO vets VALUES (4, 'Rafael', 'Ortega')|
+1463748737096|0|statement|connection 1|INSERT INTO vets VALUES (5, 'Henry', 'Stevens')|
+1463748737096|0|statement|connection 1|INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins')|
+1463748737096|0|statement|connection 1|INSERT INTO specialties VALUES (1, 'radiology')|
+1463748737097|1|statement|connection 1|INSERT INTO specialties VALUES (2, 'surgery')|
+1463748737097|0|statement|connection 1|INSERT INTO specialties VALUES (3, 'dentistry')|
+1463748737097|0|statement|connection 1|INSERT INTO vet_specialties VALUES (2, 1)|
+1463748737097|0|statement|connection 1|INSERT INTO vet_specialties VALUES (3, 2)|
+1463748737098|0|statement|connection 1|INSERT INTO vet_specialties VALUES (3, 3)|
+1463748737098|0|statement|connection 1|INSERT INTO vet_specialties VALUES (4, 2)|
+1463748737098|0|statement|connection 1|INSERT INTO vet_specialties VALUES (5, 1)|
+1463748737098|0|statement|connection 1|INSERT INTO types VALUES (1, 'cat')|
+1463748737099|0|statement|connection 1|INSERT INTO types VALUES (2, 'dog')|
+1463748737099|0|statement|connection 1|INSERT INTO types VALUES (3, 'lizard')|
+1463748737099|0|statement|connection 1|INSERT INTO types VALUES (4, 'snake')|
+1463748737099|0|statement|connection 1|INSERT INTO types VALUES (5, 'bird')|
+1463748737100|1|statement|connection 1|INSERT INTO types VALUES (6, 'hamster')|
+1463748737100|0|statement|connection 1|INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023')|
+1463748737100|0|statement|connection 1|INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749')|
+1463748737100|0|statement|connection 1|INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763')|
+1463748737101|0|statement|connection 1|INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198')|
+1463748737101|0|statement|connection 1|INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765')|
+1463748737101|0|statement|connection 1|INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654')|
+1463748737102|1|statement|connection 1|INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387')|
+1463748737102|0|statement|connection 1|INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683')|
+1463748737102|0|statement|connection 1|INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435')|
+1463748737103|1|statement|connection 1|INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487')|
+1463748737103|0|statement|connection 1|INSERT INTO pets VALUES (1, 'Leo', '2010-09-07', 1, 1)|
+1463748737103|0|statement|connection 1|INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 6, 2)|
+1463748737104|1|statement|connection 1|INSERT INTO pets VALUES (3, 'Rosy', '2011-04-17', 2, 3)|
+1463748737104|0|statement|connection 1|INSERT INTO pets VALUES (4, 'Jewel', '2010-03-07', 2, 3)|
+1463748737105|1|statement|connection 1|INSERT INTO pets VALUES (5, 'Iggy', '2010-11-30', 3, 4)|
+1463748737105|0|statement|connection 1|INSERT INTO pets VALUES (6, 'George', '2010-01-20', 4, 5)|
+1463748737105|0|statement|connection 1|INSERT INTO pets VALUES (7, 'Samantha', '2012-09-04', 1, 6)|
+1463748737106|1|statement|connection 1|INSERT INTO pets VALUES (8, 'Max', '2012-09-04', 1, 6)|
+1463748737106|0|statement|connection 1|INSERT INTO pets VALUES (9, 'Lucky', '2011-08-06', 5, 7)|
+1463748737107|1|statement|connection 1|INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 2, 8)|
+1463748737107|0|statement|connection 1|INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 5, 9)|
+1463748737107|0|statement|connection 1|INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 2, 10)|
+1463748737108|1|statement|connection 1|INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 1, 10)|
+1463748737108|0|statement|connection 1|INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot')|
+1463748737108|0|statement|connection 1|INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot')|
+1463748737109|1|statement|connection 1|INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered')|
+1463748737109|0|statement|connection 1|INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed')|
