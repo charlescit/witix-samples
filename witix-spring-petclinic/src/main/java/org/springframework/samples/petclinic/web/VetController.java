@@ -17,13 +17,14 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * @author Juergen Hoeller
@@ -34,25 +35,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class VetController {
 
-    private final ClinicService clinicService;
+	private final ClinicService clinicService;
 
+	@Autowired
+	public VetController(ClinicService clinicService) {
+		this.clinicService = clinicService;
+	}
 
-    @Autowired
-    public VetController(ClinicService clinicService) {
-        this.clinicService = clinicService;
-    }
-
-    @RequestMapping("/vets")
+	@RequestMapping("/vets")
 	@Timed
 	@Metered
-    public String showVetList(Map<String, Object> model) {
-        // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
-        // so it is simpler for Object-Xml mapping
-        Vets vets = new Vets();
-        vets.getVetList().addAll(this.clinicService.findVets());
-        model.put("vets", vets);
-        return "vets/vetList";
-    }
+	public String showVetList(Map<String, Object> model) {
+		// Here we are returning an object of type 'Vets' rather than a
+		// collection of Vet objects
+		// so it is simpler for Object-Xml mapping
+		Vets vets = new Vets();
+		vets.getVetList().addAll(this.clinicService.findVets());
+		model.put("vets", vets);
 
+		clinicService.asyncMethod();
+
+		return "vets/vetList";
+	}
 
 }
